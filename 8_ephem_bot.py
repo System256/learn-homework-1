@@ -17,7 +17,7 @@ import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import ephem
 import os
-import datetime
+from datetime import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -36,12 +36,13 @@ def greet_user(update, context):
     
 
 def name_planet(update, context):
-    planet = update.message.text.split()[-1].capitalize()
-    date_today = datetime.datetime.now()
-    if planet in [name for _0, _1, name in ephem._libastro.builtin_planets()]:
-        planet_type = getattr(ephem, planet)
-        planet_type = planet_type(date_today)
-        update.message.reply_text(f"Планета {planet} находится сегодня в созвездии {ephem.constellation(planet_type)[-1]}")
+    planet_name = update.message.text.split()[-1].capitalize()
+    if planet_name in [name for _0, _1, name in ephem._libastro.builtin_planets()]:
+        if hasattr(ephem, planet_name):
+            planet = getattr(ephem, planet_name)(datetime.now())
+            update.message.reply_text(f"Планета {planet_name} находится сегодня в созвездии {ephem.constellation(planet)[-1]}")
+    else:
+        update.message.reply_text(f"Планеты {planet_name} не существует.")
 
 
 def talk_to_me(update, context):

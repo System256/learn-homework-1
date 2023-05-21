@@ -41,7 +41,7 @@ def name_planet(update, context):
     if planet in [name for _0, _1, name in ephem._libastro.builtin_planets()]:
         planet_type = getattr(ephem, planet)
         planet_type = planet_type(date_today)
-        update.message.reply_text(f"Планета {planet} находится сегодня в созвездии {ephem.constellation(planet_type)[-1]}")
+        update.message.reply_text(f"Планета  {planet} находится сегодня в созвездии {ephem.constellation(planet_type)[-1]}")
 
 
 def talk_to_me(update, context):

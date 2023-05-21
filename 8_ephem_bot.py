@@ -41,8 +41,8 @@ def name_planet(update, context):
         if hasattr(ephem, planet_name):
             planet = getattr(ephem, planet_name)(datetime.now())
             update.message.reply_text(f"Планета {planet_name} находится сегодня в созвездии {ephem.constellation(planet)[-1]}")
-        else:
-            update.message.reply_text(f"Планеты {planet_name} не существует.")
+    else:
+        update.message.reply_text(f"Планеты {planet_name} не существует.")
 
 
 def talk_to_me(update, context):
